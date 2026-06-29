@@ -2,7 +2,11 @@
 
 [![fr](https://img.shields.io/badge/lang-fr-red.svg)](README.fr.md)
 
+> Because this was a french project, most of the code was written in French
+
 A custom In-System Programmer (ISP) designed to flash AVR microcontrollers via USB. This project encompasses the full stack: custom hardware design (PCB), USB firmware (LUFA), and a host PC tool (libusb).
+
+![](hardware/Pictures/3d.png)
 
 ## Features
 
@@ -36,6 +40,12 @@ A Linux command-line interface written in C.
 - Parses `.hex` files.
 - Includes a dynamic target database to adjust page sizes and memory limits based on the detected target's ISP signature.
 
+### 3. Tests (`/ISP_tests`)
+
+Functions to test the hardware by ISP:
+
+- `boutons.c`: test the boutons
+
 ## Installation & Build
 
 ### Prerequisites
@@ -65,12 +75,18 @@ make all
 
 ### Flashing the Programmer Firmware
 
-Put the ATmega16U2 board into DFU mode (Hardware RESET), then flash the compiled LUFA firmware:
+Connect the programmer to your PC via USB. Put the ATmega16U2 board into **DFU mode** (Hardware RESET), then flash the compiled LUFA firmware:
+
+- For minicom (debugging):
 
 ```bash
-sudo dfu-programmer atmega16u2 erase
-sudo dfu-programmer atmega16u2 flash firmware/main.hex
-sudo dfu-programmer atmega16u2 reset
+make minicom
+```
+
+- For the main program
+
+```bash
+make prog
 ```
 
 ## Usage

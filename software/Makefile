@@ -6,7 +6,6 @@ OBJS = $(addprefix build/, $(SRCS:.c=.o))
 TARGET = build/prog
 
 all: $(TARGET) | build
-	$(MAKE) -C code_a_televerser
 	$(MAKE) -C fonctions_test
 	
 $(TARGET): $(OBJS) | build
@@ -17,7 +16,6 @@ build/%.o: %.c | build
 
 clean:
 	rm -rf build
-	$(MAKE) -C code_a_televerser clean
 	$(MAKE) -C fonctions_test clean
 	
 build:

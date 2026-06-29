@@ -9,7 +9,7 @@ int main(void)
     while (1)
     {
         PORTB ^= (1 << PB5); // Inverse l'état de la LED
-        _delay_ms(500);
+        _delay_ms(1000);
     }
     return 0;
 }

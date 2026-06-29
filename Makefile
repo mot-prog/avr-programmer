@@ -1,6 +1,11 @@
-.PHONY: all firmware software ISP_tests clean
+ifeq (write,$(firstword $(MAKECMDGOALS)))
+  HEX_FILE := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  $(eval $(HEX_FILE):;@:)
+endif
 
-all: firmware software ISP_tests
+.PHONY: all firmware software examples clean read write
+
+all: firmware software convert
 
 firmware:
 	$(MAKE) -C firmware
@@ -8,10 +13,16 @@ firmware:
 software:
 	$(MAKE) -C software
 
-ISP_tests:
-	$(MAKE) -C ISP_tests
+convert:
+	$(MAKE) -C code_to_flash
 
 clean:
 	$(MAKE) -C firmware clean
 	$(MAKE) -C software clean
-	$(MAKE) -C ISP_tests clean
+	$(MAKE) -C code_to_flash clean
+
+read: software
+	sudo ./software/build/prog -read
+
+write: software
+	sudo ./software/build/prog -write $(HEX_FILE)
