@@ -89,19 +89,26 @@ make minicom
 make prog
 ```
 
+> Unplugging and replugging the USB cable it sometimes necessary to detect the AVR with the new firmawre.
+
 ## Usage
 
 Connect the programmer to your PC via USB, and wire the ISP header to your target AVR (e.g., an Arduino Uno / ATmega328P).
 
-**1. Read Target Flash:**
+**1. Where you put your C files**
+In `code_to_flash` you put your C files. When you compile all the files (`make`) your C files are stored in the `hex` folder.
+
+**2. Read Target Flash:**
 
 ```bash
-sudo ./software/build/prog -read
+make read
 ```
 
-**2. Write Hex File to Target:**
+> Usefull to be sure that the code is properly written into the card
+
+**3. Write Hex File to Target:**
 
 ```bash
-# Example: Flashing the provided blink program
-sudo ./software/build/prog -write examples/blink.hex
+# Example
+make write hex/blind.hex
 ```

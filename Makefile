@@ -3,7 +3,7 @@ ifeq (write,$(firstword $(MAKECMDGOALS)))
   $(eval $(HEX_FILE):;@:)
 endif
 
-.PHONY: all firmware software examples clean read write
+.PHONY: all firmware software convert prog clean read write
 
 all: firmware software convert
 
@@ -16,7 +16,13 @@ software:
 convert:
 	$(MAKE) -C code_to_flash
 
-clean:
+prog: firmware/InOut/main.hex
+	sudo dfu-programmer atmega16u2 erase && sudo dfu-programmer atmega16u2 flash firmware/InOut/main.hex && sudo dfu-programmer atmega16u2 reset
+
+minicom: firmware/VirtualSerial/VirtualSerial.hex
+	sudo dfu-programmer atmega16u2 erase && sudo dfu-programmer atmega16u2 flash firmware/VirtualSerial/VirtualSerial.hex && sudo dfu-programmer atmega16u2 reset
+
+clean: 
 	$(MAKE) -C firmware clean
 	$(MAKE) -C software clean
 	$(MAKE) -C code_to_flash clean
