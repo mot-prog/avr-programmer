@@ -27,7 +27,7 @@ The board is built around an ATmega16U2. It exposes a standard ISP interface (MI
 
 ### 2. Firmware (`/firmware`)
 
-The brain of the programmer. Written in C using the [LUFA](http://www.fourwalledcubicle.com/LUFA.php) library.
+The brain of the programmer. Written in C using the LUFA library.
 
 - Processes `OUT` packets from the PC to execute SPI commands.
 - Transmits AVR responses (signatures, flash reads) back to the PC via `IN` packets.
@@ -40,11 +40,13 @@ A Linux command-line interface written in C.
 - Parses `.hex` files.
 - Includes a dynamic target database to adjust page sizes and memory limits based on the detected target's ISP signature.
 
-### 3. Tests (`/ISP_tests`)
+### 4. Tests with another card (`/ISP_tests`)
 
 Functions to test the hardware by ISP:
 
-- `boutons.c`: test the boutons
+- `blink.c`: test the leds
+
+* `boutons.c`: test the boutons
 
 ## Installation & Build
 
